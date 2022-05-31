@@ -51,7 +51,6 @@ hero.save(function(err, hero, affected){
 
 var mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/all')
-var Hero = require("./models/hero").Hero
 var async = require("async")
 var data = require('./data.js').data
 
@@ -62,12 +61,11 @@ var data = require('./data.js').data
 async.series([
         open,
         dropDatabase,
-        createHeroes,
-        close
+        requireModels,
+        createHeroes
     ],
     function(err,result){
-        if(err) throw err
-        console.log("ok")
+        mongoose.disconnect()
     })
 
 function open(callback){
@@ -90,7 +88,13 @@ function createHeroes(callback){
         console.log("Герои созданы")
 }
 
-function close(callback){
-    mongoose.disconnect(callback)
-    console.log("Закрыта")
+function requireModels(callback){
+    require("./models/hero").Hero
+
+    async.each(Object.keys(mongoose.models),function(modelName){
+        mongoose.models[modelName].ensureIndexes(callback)
+    },
+        callback
+    )
+    console.log("Модели проиндексированы")
 }
