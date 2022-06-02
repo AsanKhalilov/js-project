@@ -6,8 +6,11 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+
+module.exports = router;
+
 /* Страница Питтера Грифина */
-router.get('/peter', function(req, res, next) {
+/*router.get('/peter', function(req, res, next) {
   res.render('hero', {
       title: "Питтер Гриффин",
       picture: "images/peter.png",
@@ -16,7 +19,7 @@ router.get('/peter', function(req, res, next) {
 });
 
 /* Страница Лоис */
-router.get('/lois', function(req, res, next) {
+/*router.get('/lois', function(req, res, next) {
   res.render('hero', {
       title: "Лоис",
       picture: "images/lois.jpg",
@@ -25,7 +28,7 @@ router.get('/lois', function(req, res, next) {
 });
 
 /* Страница Мэг */
-router.get('/meg', function(req, res, next) {
+/*router.get('/meg', function(req, res, next) {
   res.render('hero', {
       title: "Мэг",
       picture: "images/meg.jpg",
@@ -34,7 +37,7 @@ router.get('/meg', function(req, res, next) {
 });
 
 /*Chris*/
-router.get('/chris', function(req, res, next) {
+/*router.get('/chris', function(req, res, next) {
   res.render('hero', {
       title: "Крис Гриффин",
       picture: "images/Chris.webp",
@@ -43,7 +46,7 @@ router.get('/chris', function(req, res, next) {
 });
 
 /*Stew*/
-router.get('/stew', function(req, res, next) {
+/*router.get('/stew', function(req, res, next) {
   res.render('hero', {
       title: "Стьюи Гриффин",
       picture: "images/Stew.jpg",
@@ -52,12 +55,10 @@ router.get('/stew', function(req, res, next) {
 });
 
 /* Страница Брайана */
-router.get('/brian', function(req, res, next) {
+/*router.get('/brian', function(req, res, next) {
   res.render('hero', {
       title: "Брайан Гриффин",
       picture: "images/brian.jpg",
       desc: "Брайан Гриффин — разговаривающая собака породы лабрадор, 8 лет, живёт с Гриффинами с тех пор, когда Питер подобрал его как бродячую собаку. Владеет такими человеческими качествами как: разговаривать, причём часто на довольно умные темы, водить автомобиль, ходить на двух ногах. Очень остроумный. Питер его лучший друг. В эпизоде Брайан возвращается в колледж, мы узнаем что Брайан ходил в университет Брауна в Род Айленде, но не закончил его. Любит Лоис."
   });
-});
-
-module.exports = router;
+});*/
