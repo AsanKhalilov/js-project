@@ -2,7 +2,6 @@ var express = require('express')
 var router = express.Router()
 //11.5 var Hero = require("../models/hero").Hero
 
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
    //11.5 Hero.find({},{_id:0,title:1,nick:1},function(err,menu){
@@ -12,7 +11,13 @@ router.get('/', function(req, res, next) {
                            //11.5 menu: menu,
                             counter: req.session.counter
                           });
-    })
+    });
+
+/* GET login/registration page. */
+router.get('/logreg', function(req, res, next) {
+  res.render('logreg',{title: 'Вход'});
+  });
+  
 
 //11.5 });
 
