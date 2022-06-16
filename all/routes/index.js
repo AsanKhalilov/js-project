@@ -1,13 +1,84 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+var router = express.Router()
+var User = require("./../models/User").User
+//11.5 var Hero = require("../models/hero").Hero
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+   //11.5 Hero.find({},{_id:0,title:1,nick:1},function(err,menu){
+      req.session.greeting = "Hi!!!!"
+      res.render('index', {
+                            title: 'Express',
+                           //11.5 menu: menu,
+                            counter: req.session.counter
+                          });
+    });
+
+/* GET login/registration page. */
+router.get('/logreg', function(req, res, next) {
+  res.render('logreg',{title: 'Вход', error: null});
 });
 
+/* POST login/registration page. */
+/*router.post('/logreg', function(req, res, next) {
+  var username = req.body.username
+  var password = req.body.password
+  User.findOne({username:username},function(err,user){
+    if(err) return next(err)
+    if(user){
+      if(user.checkPassword(password)){
+        req.session.user = user
+        res.redirect('/')
+      } else {
+        res.render('logreg', {title: 'Вход', error: 'Пароль не верный'})
+      }
+    } else {
+      var user = new User({username:username,password:password})
+            user.save(function(err,user){
+                if(err) return next(err)
+                req.session.user = user
+                res.redirect('/')
+            })     
+    }
+})
+});*/
+router.post('/logreg', function(req, res, next) {
+  var username = req.body.username
+  var password = req.body.password
+  User.findOne({username:username},function(err,user){
+      if(err) return next(err)
+      if(user){
+          if(user.checkPassword(password)){
+              req.session.user = user._id
+              res.redirect('/')
+          } else {
+                    res.render('logreg',{title:'Вход', error: 'Пароль не верный'})
+          }
+     } else {
+     var user = new User({username:username,password:password})
+          user.save(function(err,user){
+              if(err) return next(err)
+              req.session.user = user._id
+              res.redirect('/')
+          })        
+    }
+  })
+});
+
+/* POST logout. */
+router.post('/logout', function(req, res, next) {
+  req.session.destroy()
+  res.locals.user = null;
+  res.redirect('/')
+});
+
+//11.5 });
+
+module.exports = router;
+
+
 /* Страница Питтера Грифина */
-router.get('/peter', function(req, res, next) {
+/*router.get('/peter', function(req, res, next) {
   res.render('hero', {
       title: "Питтер Гриффин",
       picture: "images/peter.png",
@@ -16,7 +87,7 @@ router.get('/peter', function(req, res, next) {
 });
 
 /* Страница Лоис */
-router.get('/lois', function(req, res, next) {
+/*router.get('/lois', function(req, res, next) {
   res.render('hero', {
       title: "Лоис",
       picture: "images/lois.jpg",
@@ -25,7 +96,7 @@ router.get('/lois', function(req, res, next) {
 });
 
 /* Страница Мэг */
-router.get('/meg', function(req, res, next) {
+/*router.get('/meg', function(req, res, next) {
   res.render('hero', {
       title: "Мэг",
       picture: "images/meg.jpg",
@@ -34,7 +105,7 @@ router.get('/meg', function(req, res, next) {
 });
 
 /*Chris*/
-router.get('/chris', function(req, res, next) {
+/*router.get('/chris', function(req, res, next) {
   res.render('hero', {
       title: "Крис Гриффин",
       picture: "images/Chris.webp",
@@ -43,7 +114,7 @@ router.get('/chris', function(req, res, next) {
 });
 
 /*Stew*/
-router.get('/stew', function(req, res, next) {
+/*router.get('/stew', function(req, res, next) {
   res.render('hero', {
       title: "Стьюи Гриффин",
       picture: "images/Stew.jpg",
@@ -52,12 +123,10 @@ router.get('/stew', function(req, res, next) {
 });
 
 /* Страница Брайана */
-router.get('/brian', function(req, res, next) {
+/*router.get('/brian', function(req, res, next) {
   res.render('hero', {
       title: "Брайан Гриффин",
       picture: "images/brian.jpg",
       desc: "Брайан Гриффин — разговаривающая собака породы лабрадор, 8 лет, живёт с Гриффинами с тех пор, когда Питер подобрал его как бродячую собаку. Владеет такими человеческими качествами как: разговаривать, причём часто на довольно умные темы, водить автомобиль, ходить на двух ногах. Очень остроумный. Питер его лучший друг. В эпизоде Брайан возвращается в колледж, мы узнаем что Брайан ходил в университет Брауна в Род Айленде, но не закончил его. Любит Лоис."
   });
-});
-
-module.exports = router;
+});*/
