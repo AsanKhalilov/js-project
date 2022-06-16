@@ -9,6 +9,7 @@ var session = require("express-session")
 var MongoStore = require('connect-mongo');
 var Hero = require("./models/hero").Hero
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var heroes = require('./routes/heroes');
@@ -37,6 +38,7 @@ app.use(function(req,res,next){
   next()
   })
 app.use(require("./middleware/createMenu.js"))
+app.use(require("./middleware/createUser.js"))
     
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
